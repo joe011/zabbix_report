@@ -1,0 +1,185 @@
+<!doctype html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<body>
+
+<div>
+    <h2> Zabbix WEB 服务可用性周报 </h2>
+    <h3>时间{{datetimes[0]}} ~~ {{ datetimes[-1]}} </h3>
+</div>
+
+<div id="container" style="min-width:700px;height:400px"></div>
+<div id="grouprate" style="min-width:700px;height:400px"></div>
+
+<table cellpadding="5" style="float:left; margin-left:200px;"> 
+<tr>
+<td style="color: blue;  font-size: large; font-family: -webkit-pictograph;">可用率较低的前20个接口</td>
+</tr>
+
+{% for t in range(20) %}
+    <tr>
+        <td>{{t_rates[t][0]}}</td>
+        <td>{{t_rates[t][1]}}%</td>
+    </tr>
+  {% end %}
+
+
+</table>
+
+<table cellpadding="5" style="float:left; margin-left:300px;"> 
+<tr>
+<td style="color: blue;  font-size: large; font-family: -webkit-pictograph;">耗时最多的前20个接口</td>
+</tr>
+
+{% for e in range(20) %}
+    <tr>
+        <td>{{t_times[e][0]}}</td>
+        <td>{{float(t_times[e][1]) * 1000}} ms </td>
+    </tr>
+  {% end %}
+
+
+</table>
+
+
+
+  <script type="text/javascript" src="http://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+  <script type="text/javascript" src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+
+
+  <script>
+
+      $(function () {
+
+    var colors = Highcharts.getOptions().colors,
+    name = '服务可用率',
+    
+    categories = [{% for n in names %}'{{n}}',{% end %}],
+   
+    data=[
+            {% for i in datas %}
+            {
+                y: {{i[1][1]}},
+                color: colors{{[i[0]]}},
+
+            },
+           
+            {% end %}
+          ];
+
+
+   function setChart(name, categories, data, color) {
+    chart.xAxis[0].setCategories(categories, false);
+    chart.series[0].remove(false);
+    chart.addSeries({
+        name: name,
+        data: data,
+        color: color || 'white'
+    }, false);
+    chart.redraw();
+   }
+
+    var chart = $('#container').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: '各服务总可用率'
+        },
+
+        xAxis: {
+            categories: categories
+        },
+        yAxis: {
+            title: {
+                text: '百分比(%)'
+            }
+        },
+        plotOptions: {
+            column: {
+                cursor: 'pointer',
+
+                dataLabels: {
+                    enabled: true,
+                    color: colors[0],
+                    style: {
+                        fontWeight: 'bold'
+                    },
+                    formatter: function() {
+                        return this.y +'%';
+                    }
+                }
+
+            }
+        },
+
+        series: [{
+            name: name,
+            data: data,
+            color: 'white'
+        }],
+        exporting: {
+            enabled: false
+        }
+    })
+    .highcharts(); // return chart
+    $("g text").each(function() {
+        $(this).css("text-shadow", "");
+    });
+});
+
+  </script>
+
+  <script type="text/javascript">
+
+
+$(function () {
+    $('#grouprate').highcharts({
+        title: {
+            text: '各服务平均耗时',
+            x: -20 //center
+        },
+
+        xAxis: {
+            categories: [{% for d in datetimes %}'{{d}}',{% end %}]
+        },
+        yAxis: {
+            title: {
+                text: '耗时（ms）'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            valueSuffix: 'ms'
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [
+        {% for k,v in  p_times.items() %}
+        {
+            name: '{{ k }}',
+            data: {{ v }}
+        }, 
+       {% end %}
+        ]
+    });
+});
+                
+
+
+  </script>
+ 
+</body>
+
+</html>

@@ -1,0 +1,398 @@
+
+<!doctype html>
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<div>
+<h2> Zabbix WEB 服务可用性周报 </h2>
+<h3>时间2016-01-01 ~~ 2016-01-07 </h3>
+</div>
+<div id="container" style="min-width:700px;height:400px"></div>
+<div id="grouprate" style="min-width:700px;height:400px"></div>
+<table cellpadding="5" style="float:left; margin-left:200px;">
+<tr>
+<td style="color: blue; font-size: large; font-family: -webkit-pictograph;">可用率较低的前20个接口</td>
+</tr>
+
+<tr>
+<td>分发接口</td>
+<td>98.57%</td>
+</tr>
+
+<tr>
+<td>web 1</td>
+<td>98.73%</td>
+</tr>
+
+<tr>
+<td>web 2</td>
+<td>98.80%</td>
+</tr>
+
+<tr>
+<td>web 3</td>
+<td>99.59%</td>
+</tr>
+
+<tr>
+<td>app 1</td>
+<td>99.77%</td>
+</tr>
+
+<tr>
+<td>app 2</td>
+<td>99.77%</td>
+</tr>
+
+<tr>
+<td>app 3</td>
+<td>99.77%</td>
+</tr>
+
+<tr>
+<td>app 4</td>
+<td>99.77%</td>
+</tr>
+
+<tr>
+<td>app 5</td>
+<td>99.77%</td>
+</tr>
+
+<tr>
+<td>app 6</td>
+<td>99.79%</td>
+</tr>
+
+<tr>
+<td>app 7</td>
+<td>99.80%</td>
+</tr>
+
+<tr>
+<td>app 8</td>
+<td>99.81%</td>
+</tr>
+
+<tr>
+<td>app 9</td>
+<td>99.81%</td>
+</tr>
+
+<tr>
+<td>app 10</td>
+<td>99.83%</td>
+</tr>
+
+<tr>
+<td>web 4</td>
+<td>99.83%</td>
+</tr>
+
+<tr>
+<td>web 5</td>
+<td>99.84%</td>
+</tr>
+
+<tr>
+<td>app 11</td>
+<td>99.85%</td>
+</tr>
+
+<tr>
+<td>app 12</td>
+<td>99.86%</td>
+</tr>
+
+<tr>
+<td>app 13</td>
+<td>99.86%</td>
+</tr>
+
+<tr>
+<td>app 14</td>
+<td>99.87%</td>
+</tr>
+
+</table>
+<table cellpadding="5" style="float:left; margin-left:300px;">
+<tr>
+<td style="color: blue; font-size: large; font-family: -webkit-pictograph;">耗时最多的前20个接口</td>
+</tr>
+
+<tr>
+<td>other 1</td>
+<td>370.0 ms </td>
+</tr>
+
+<tr>
+<td>other 2</td>
+<td>350.0 ms </td>
+</tr>
+
+<tr>
+<td>other 3</td>
+<td>330.0 ms </td>
+</tr>
+
+<tr>
+<td>web 1</td>
+<td>290.0 ms </td>
+</tr>
+
+<tr>
+<td>app 1</td>
+<td>230.0 ms </td>
+</tr>
+
+<tr>
+<td>other 4</td>
+<td>190.0 ms </td>
+</tr>
+
+<tr>
+<td>web 2</td>
+<td>180.0 ms </td>
+</tr>
+
+<tr>
+<td>app 2</td>
+<td>170.0 ms </td>
+</tr>
+
+<tr>
+<td>app 3</td>
+<td>170.0 ms </td>
+</tr>
+
+<tr>
+<td>other 5</td>
+<td>170.0 ms </td>
+</tr>
+
+<tr>
+<td>app 4</td>
+<td>170.0 ms </td>
+</tr>
+
+<tr>
+<td>app 5</td>
+<td>160.0 ms </td>
+</tr>
+
+<tr>
+<td>app 6</td>
+<td>160.0 ms </td>
+</tr>
+
+<tr>
+<td>app 7</td>
+<td>160.0 ms </td>
+</tr>
+
+<tr>
+<td>app 8</td>
+<td>150.0 ms </td>
+</tr>
+
+<tr>
+<td>app 9</td>
+<td>150.0 ms </td>
+</tr>
+
+<tr>
+<td>web 6</td>
+<td>150.0 ms </td>
+</tr>
+
+<tr>
+<td>web 1</td>
+<td>130.0 ms </td>
+</tr>
+
+<tr>
+<td>web 3</td>
+<td>130.0 ms </td>
+</tr>
+
+<tr>
+<td>web 4</td>
+<td>130.0 ms </td>
+</tr>
+
+</table>
+<script type="text/javascript" src="http://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+<!--<script type="text/javascript" src="http://cdn.hcharts.cn/highcharts/modules/exporting.js"></script>-->
+<script>
+$(function () {
+var colors = Highcharts.getOptions().colors,
+name = '服务可用率',
+categories = ['app','web','msg','sns','feed','elk','nearby',],
+data=[
+
+{
+y: 98.63,
+color: colors[0],
+},
+
+{
+y: 99.52,
+color: colors[1],
+},
+
+{
+y: 99.84,
+color: colors[2],
+},
+
+{
+y: 99.95,
+color: colors[3],
+},
+
+{
+y: 99.98,
+color: colors[4],
+},
+
+{
+y: 100.00,
+color: colors[5],
+},
+
+{
+y: 100.00,
+color: colors[6],
+},
+
+];
+function setChart(name, categories, data, color) {
+chart.xAxis[0].setCategories(categories, false);
+chart.series[0].remove(false);
+chart.addSeries({
+name: name,
+data: data,
+color: color || 'white'
+}, false);
+chart.redraw();
+}
+var chart = $('#container').highcharts({
+chart: {
+type: 'column'
+},
+title: {
+text: 'Zabbix WEB各服务总可用率'
+},
+xAxis: {
+categories: categories
+},
+yAxis: {
+title: {
+text: '百分比(%)'
+}
+},
+plotOptions: {
+column: {
+cursor: 'pointer',
+dataLabels: {
+enabled: true,
+color: colors[0],
+style: {
+fontWeight: 'bold'
+},
+formatter: function() {
+return this.y +'%';
+}
+}
+}
+},
+series: [{
+name: name,
+data: data,
+color: 'white'
+}],
+exporting: {
+enabled: false
+}
+})
+.highcharts(); // return chart
+$("g text").each(function() {
+$(this).css("text-shadow", "");
+});
+});
+</script>
+<script type="text/javascript">
+$(function () {
+$('#grouprate').highcharts({
+title: {
+text: '各服务平均耗时',
+x: -20 //center
+},
+xAxis: {
+categories: ['2016-03-15','2016-03-16','2016-03-17','2016-03-18','2016-03-19','2016-03-20','2016-03-21',]
+},
+yAxis: {
+title: {
+text: '耗时（ms）'
+},
+plotLines: [{
+value: 0,
+width: 1,
+color: '#808080'
+}]
+},
+tooltip: {
+valueSuffix: 'ms'
+},
+legend: {
+layout: 'vertical',
+align: 'right',
+verticalAlign: 'middle',
+borderWidth: 0
+},
+series: [
+
+{
+name: 'feed',
+data: [174.0, 102.0, 126.0, 134.0, 144.0, 103.0, 283.0]
+},
+
+{
+name: 'sns',
+data: [325.0, 346.0, 351.0, 263.0, 351.0, 440.0, 470.0]
+},
+
+{
+name: 'msg',
+data: [84.0, 82.0, 91.0, 90.0, 95.0, 94.0, 81.0]
+},
+
+{
+name: 'elk',
+data: [45.0, 41.0, 40.0, 36.0, 48.0, 38.0, 27.0]
+},
+
+{
+name: 'app',
+data: [284.0, 238.0, 170.0, 147.0, 145.0, 196.0, 155.0]
+},
+
+{
+name: 'web',
+data: [142.0, 49.0, 55.0, 98.0, 65.0, 87.0, 49.0]
+},
+
+{
+name: 'nearby',
+data: [151.0, 307.0, 165.0, 159.0, 141.0, 138.0, 124.0]
+},
+
+]
+});
+});
+</script>
+</body>
+</html>
